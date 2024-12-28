@@ -1,0 +1,5 @@
+import os;
+
+main() {
+    auto myarg = os@args();
+} int32

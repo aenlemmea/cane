@@ -1,0 +1,72 @@
+%{
+	#include <iostream>
+	#include <cstdlib>
+	#include "lexertil.hh"
+%}
+
+%option nodefault
+%option noyywrap
+%option c++
+%option yyclass="Lexer"
+%option prefix="Cane_"
+%option header-file="lex.hh"
+
+%%
+
+
+import      {
+                return dtok{ yytext, token::IMPORT };
+            }
+auto        {
+                return dtok{ yytext, token::AUTO };
+            }
+ret         {
+                return dtok{ yytext, token::RET };
+            }
+[a-z]+      {
+                return dtok{ yytext, token::IDENT };
+            }
+\(          {
+                return dtok{ yytext, token::LPAREN };
+            }
+
+\)          {
+                return dtok{ yytext, token::RPAREN };
+            }
+\{          {
+                return dtok{ yytext, token::LCURLY };
+            }
+\}          {
+                return dtok{ yytext, token::RCURLY };
+            }
+@           {
+                return dtok{ yytext, token::TO };
+            }
+=           {
+                return dtok{ yytext, token::ASSIGN };
+            }
+;           {
+                return dtok{ yytext, token::SEMICOLON };
+            }
+,           {
+                return dtok{ yytext, token::COMMA };
+            }
+[\n\t ]     {
+            }
+[1-9][0-9]* {
+                return dtok{ yytext, token::INTLIT };
+            }
+.           {
+                std::cerr << "Scanner: unknown character [" << yytext << "]" << std::endl;
+            }
+int32       {
+                return dtok{ yytext, token::INT32 };
+            }
+int64       {
+                return dtok{ yytext, token::INT64 };
+            }
+<<EOF>>     {
+                return dtok { "EOF", token::__FIN };
+            }
+
+%%
