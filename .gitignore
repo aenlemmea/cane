@@ -28,3 +28,5 @@ lib/built
 lex.Cane_.cc
 CaneLexerGen.cc
 lex.hh
+lex.yy.c
+lex.yy.cc
